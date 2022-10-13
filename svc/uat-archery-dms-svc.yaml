@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: uat-archery-dms-svc
+  namespace: uat-archery
+spec:
+  ports:
+    - name: http
+      port: 9123
+      protocol: TCP
+      targetPort: 9123
+  selector:
+    app: uat-archery-dms
+  sessionAffinity: None
+  type: ClusterIP

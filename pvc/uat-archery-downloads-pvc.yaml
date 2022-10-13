@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: uat-archery-downloads-pvc
+  namespace: uat-archery
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 20Gi
+  selector:
+    matchLabels:
+      alicloud-pvname: uat-archery-downloads-pv
+  storageClassName: nas
+  volumeMode: Filesystem
+  volumeName: uat-archery-downloads-pv

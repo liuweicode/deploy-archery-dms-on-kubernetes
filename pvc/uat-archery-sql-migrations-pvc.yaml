@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: uat-archery-sql-migrations-pvc
+  namespace: uat-archery
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      alicloud-pvname: uat-archery-sql-migrations-pv
+  storageClassName: nas
+  volumeMode: Filesystem
+  volumeName: uat-archery-sql-migrations-pv

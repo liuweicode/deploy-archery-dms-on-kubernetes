@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: uat-archery-goinception-svc
+  namespace: uat-archery
+spec:
+  ports:
+    - name: tcp-4000
+      port: 4000
+      protocol: TCP
+      targetPort: 4000
+  selector:
+    app: uat-archery-goinception
+  sessionAffinity: None
+  type: ClusterIP

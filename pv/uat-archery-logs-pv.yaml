@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  labels:
+    alicloud-pvname: uat-archery-logs-pv
+  name: uat-archery-logs-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 10Gi
+  csi:
+    driver: nasplugin.csi.alibabacloud.com
+    volumeAttributes:
+      path: /UAT-K8S-TOPLIST/uat-archery-dms/logs
+      server: 03427932-krsg.cn-shanghai.extreme.nas.aliyuncs.com
+      vers: '3'
+    volumeHandle: uat-archery-logs-pv
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nas
+  volumeMode: Filesystem

@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: pat-k8s-toplist-internal-lb
+  name: pat-archery-dms-ingress
+  namespace: pat-archery
+spec:
+  rules:
+    - host: archery-dms.toplist.pat
+      http:
+        paths:
+          - backend:
+              service:
+                name: pat-archery-dms-svc
+                port:
+                  number: 9123
+            path: /
+            pathType: ImplementationSpecific

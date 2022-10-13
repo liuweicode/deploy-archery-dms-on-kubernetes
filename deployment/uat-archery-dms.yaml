@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: uat-archery-dms
+  name: uat-archery-dms
+  namespace: uat-archery
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: uat-archery-dms
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: uat-archery-dms
+    spec:
+      containers:
+        - image: >-
+            toplist-registry-vpc.cn-shanghai.cr.aliyuncs.com/88/tl-archery-dms:archery-v1.9.1
+          imagePullPolicy: Always
+          name: uat-archery-dms
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /opt/archery/local_settings.py
+              name: volume-1665385246681
+              subPath: settings.py
+            - mountPath: /etc/soar.yaml
+              name: volume-1665385339167
+              subPath: soar.yaml
+            - mountPath: /opt/archery/docs/docs.md
+              name: volume-1665385339799
+              subPath: docs.md
+            - mountPath: /opt/archery/downloads
+              name: volume-uat-archery-downloads-pvc
+            - mountPath: /opt/archery/sql/migrations
+              name: volume-uat-archery-sql-migrations-pvc
+            - mountPath: /opt/archery/logs
+              name: volume-uat-archery-logs-pvc
+            - mountPath: /opt/archery/keys
+              name: volume-uat-archery-keys-pvc
+            - mountPath: /etc/localtime
+              name: volume-localtime
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: uat-archery
+          name: volume-1665385246681
+        - configMap:
+            defaultMode: 420
+            name: uat-archery
+          name: volume-1665385339167
+        - configMap:
+            defaultMode: 420
+            name: uat-archery
+          name: volume-1665385339799
+        - name: volume-uat-archery-downloads-pvc
+          persistentVolumeClaim:
+            claimName: uat-archery-downloads-pvc
+        - name: volume-uat-archery-sql-migrations-pvc
+          persistentVolumeClaim:
+            claimName: uat-archery-sql-migrations-pvc
+        - name: volume-uat-archery-logs-pvc
+          persistentVolumeClaim:
+            claimName: uat-archery-logs-pvc
+        - name: volume-uat-archery-keys-pvc
+          persistentVolumeClaim:
+            claimName: uat-archery-keys-pvc
+        - hostPath:
+            path: /etc/localtime
+            type: ''
+          name: volume-localtime
