@@ -1,4 +1,4 @@
-![archery dms dashboard](img/202210/1665638990.png)
+![archery dms dashboard](https://raw.githubusercontent.com/liuweicode/deploy-archery-dms-on-kubernetes/main/img/1665638990.png)
 
 Archery 是一个 SQL 审核查询平台；
 
@@ -37,13 +37,13 @@ docker push toplist-registry.cn-shanghai.cr.aliyuncs.com/88/tl-archery-dms:arche
 kubectl create configmap uat-archery --from-file=configmap/archery/docs.md --from-file=configmap/archery/settings.py --from-file=configmap/archery/soar.yaml -n uat-archery
 kubectl create configmap uat-archery-goinception --from-file=configmap/goinception/config.toml -n uat-archery
 ```
-![create configmap](https://static.liuwei.co/202210/1665642517.png)
+![create configmap](https://raw.githubusercontent.com/liuweicode/deploy-archery-dms-on-kubernetes/main/img/1665642517.png)
 
 ## 3. 创建pv&pvc
 
 这里使用的是阿里云的nas绑定pv和pvc，先在nas上创建好对应的目录：
 
-![目录结构](https://static.liuwei.co/202210/1665643171.png)
+![目录结构](https://raw.githubusercontent.com/liuweicode/deploy-archery-dms-on-kubernetes/main/img/1665643171.png)
 
 创建pv&pvc
 
@@ -51,7 +51,7 @@ kubectl create configmap uat-archery-goinception --from-file=configmap/goincepti
 kubectl apply -f pv
 kubectl apply -f pvc
 ```
-![创建pv&pvc](https://static.liuwei.co/202210/1665643411.png)
+![创建pv&pvc](https://raw.githubusercontent.com/liuweicode/deploy-archery-dms-on-kubernetes/main/img/1665643411.png)
 
 ## 4. 部署
 
