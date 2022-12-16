@@ -1,4 +1,4 @@
-![archery dms dashboard](https://static.liuwei.co/202210/1665638990.png)
+![archery dms dashboard](img/202210/1665638990.png)
 
 Archery 是一个 SQL 审核查询平台；
 
